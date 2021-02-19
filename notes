@@ -1,0 +1,62 @@
+ABOUT APP
+- platform on which users can write tv show reviews
+and browse reviews written by other users
+- user can manually add tv shows
+- user can only edit and delete their OWN review(s)
+- user can create LISTS to which they can add tv shows
+they like or want to watch
+- users can only edit/delete their own list and reviews
+- TV shows can only be edited/deleted from the DB if they
+are not associated with a review or list 
+
+[[DATABASE]]
+SHOWS 
+* title
+* writer
+* year_released:integer
+* num_of_seasons:integer
+* description:text
+* genre
+
+LISTS
+* name
+* description:text
+* user_id:integer <<< (list belongs to a user)
+
+REVIEWS
+* content:text
+* rating:integer
+* user_id:integer <<< (review belongs to user)
+* show_id:integer  <<< (review belongs to a review)
+
+USERS
+* username
+* email
+* password_digest
+
+
+[[MODELS]]
+
+SHOWS
+has_many :reviews
+has_many :users, through: :reviews
+
+LISTS
+belongs_to :user
+has_many :shows, through: :users
+
+REVIEWS
+belongs_to :user
+belongs_to :show
+
+** "must be a number between 1-5"
+
+USERS
+has_secured_password
+has_many :reviews
+has_many :shows, through :reviews
+has_many :lists
+
+# Set Up User Model
+# Set up login/sign up
+# Omniauth (can wait til later)
