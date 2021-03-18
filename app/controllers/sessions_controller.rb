@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
 
     #logout
     def destroy
-        session.clear #or should this line be 'session.delete :user_id'?
+        session.clear
         redirect_to '/'
     end
     
